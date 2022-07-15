@@ -190,6 +190,9 @@ public class TetramorseScript : MonoBehaviour
         else
         {
             Debug.LogFormat("[Tetramorse #{0}] Strike.", _moduleId);
+            if (_timer != null)
+                StopCoroutine(_timer);
+            TimerBar.transform.localScale = new Vector3(0, 0, 0);
             Module.HandleStrike();
             for (int i = 0; i < 4; i++)
             {
