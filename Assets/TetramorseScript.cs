@@ -165,6 +165,9 @@ public class TetramorseScript : MonoBehaviour
     private IEnumerator CheckAnswer()
     {
         Debug.LogFormat("[Tetramorse #{0}] Inputted: {1}.", _moduleId, _currentInput.Select(i => i + 1).Join(", "));
+        if (_timer != null)
+                StopCoroutine(_timer);
+            TimerBar.transform.localScale = new Vector3(0, 0, 0);
         _canPress = false;
         yield return new WaitForSeconds(0.3f);
         bool correct = true;
@@ -182,17 +185,11 @@ public class TetramorseScript : MonoBehaviour
             Debug.LogFormat("[Tetramorse #{0}] Module solved.", _moduleId);
             _moduleSolved = true;
             Module.HandlePass();
-            if (_timer != null)
-                StopCoroutine(_timer);
-            TimerBar.transform.localScale = new Vector3(0, 0, 0);
             Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
         }
         else
         {
             Debug.LogFormat("[Tetramorse #{0}] Strike.", _moduleId);
-            if (_timer != null)
-                StopCoroutine(_timer);
-            TimerBar.transform.localScale = new Vector3(0, 0, 0);
             Module.HandleStrike();
             for (int i = 0; i < 4; i++)
             {
