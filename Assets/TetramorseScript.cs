@@ -253,22 +253,10 @@ public class TetramorseScript : MonoBehaviour
 
     private IEnumerator TwitchHandleForcedSolve()
     {
-        if (_solution.Distinct().Count() == 1)
-            PlayButton.OnInteract();
-        int sofar = 0;
-        for (int i = 0; i < _currentInput.Count; i++)
-        {
-            if (_currentInput[i] == _solution[i])
-                sofar++;
-            else
-            {
-                PlayButton.OnInteract();
-                i = 4;
-            }
-        }
+        PlayButton.OnInteract();
         while (!_canPress)
             yield return null;
-        for (int i = sofar; i < _solution.Length; i++)
+        for (int i = 0; i < _solution.Length; i++)
         {
             CircleButtons[_solution[i]].OnInteract();
             yield return new WaitForSeconds(0.1f);
